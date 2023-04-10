@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './src/screens/Home';
-import Newest from './src/screens/Newest';
+import Latest from './src/screens/Latest';
 import Profile from './src/screens/Profile';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -18,7 +18,7 @@ export default function App() {
 
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'Newest') {
+          } else if (route.name === 'Latest') {
             iconName = focused ? 'newspaper' : 'newspaper-outline';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'ios-person-circle' : 'ios-person-outline';
@@ -27,12 +27,12 @@ export default function App() {
         },
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'gray',
-        tabBarStyle: {backgroundColor: '#182647'}
+        tabBarStyle: {backgroundColor: '#212838'}
         
       })}>
-        <Tab.Screen name="Home" component={Home} options={{headerStyle: {backgroundColor: '#182647'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'Palatino-Bold'}}}/>
-        <Tab.Screen name="Newest" component={Newest} />
-        <Tab.Screen name="Profile" component={Profile}/>
+        <Tab.Screen name="Home" component={Home} options={{headerStyle: {backgroundColor: '#212838'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'AlNile-Bold'}}}/>
+        <Tab.Screen name="Latest" component={Latest} options={{headerStyle: {backgroundColor: '#212838'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'AlNile-Bold'}}}/>
+        <Tab.Screen name="Profile" component={Profile} options={{headerStyle: {backgroundColor: '#212838'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'AlNile-Bold'}}}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
