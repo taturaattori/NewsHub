@@ -14,24 +14,29 @@ export default function Latest() {
 
     useEffect(() => { fetchNews() }, [])
 
-    
+    const listSeparator = () => {
+        return (
+            <View style={{ height: 1, backgroundColor: '#adadad', marginLeft: 1, marginRight: 1, marginTop: 10, marginBottom: 10 }} />
+        );
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white',  }}>Whats new?</Text>
+            <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', }}>Whats new?</Text>
             <FlatList
                 data={newsData}
                 keyExtractor={item => item.url}
                 renderItem={({ item }) => (
                     <View>
                         <View >
-                            <Text style={{ fontSize: 13, color: '#aaa' }}>{new Date(item.publishedAt).toLocaleString('en-GB', {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</Text>
-                            <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }}>{item.title}</Text>
-                            <Text style={{ fontSize: 14, color: '#555' }}>{item.source.name}</Text>
+                            <Text style={{ fontSize: 13, color: '#aaa' }}>{new Date(item.publishedAt).toLocaleString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</Text>
+                            <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white', marginTop: 5 }}>{item.title}</Text>
+                            <Text style={{ fontSize: 14, color: '#555', marginTop: 5 }}>{item.source.name}</Text>
                         </View>
                     </View>
                 )}
                 // tee itemseperator paremmin ja erikseen
-                ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+                ItemSeparatorComponent={listSeparator}
                 style={styles.list}
             />
         </View>

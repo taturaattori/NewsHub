@@ -1,25 +1,25 @@
 import { StyleSheet } from "react-native";
 
 export const article = StyleSheet.create({
-    container: {
-      height: 240,
+    box: {
+      height: 220,
       marginBottom: 18,
       backgroundColor: '#eee',
-      borderRadius: 24,
-      marginHorizontal: 16,
+      borderRadius: 4,
+      marginHorizontal: 9,
     },
     imageContainer: {flex: 1},
     image: {
       flex: 1,
-      borderRadius: 24,
+      borderRadius: 4,
       height: 300,
     },
     titleContainer: {
       position: 'absolute',
       bottom: 0,
       width: '100%',
-      borderBottomLeftRadius: 24,
-      borderBottomRightRadius: 24,
+      borderBottomLeftRadius: 4,
+      borderBottomRightRadius: 4,
       height: 160,
       paddingLeft: 16,
       paddingRight: 10,

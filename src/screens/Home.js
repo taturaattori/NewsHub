@@ -24,10 +24,10 @@ export default function Home() {
                 data={newsData}
                 keyExtractor={item => item.url}
                 renderItem={({ item }) => (
-                    <TouchableOpacity activeOpacity={1} style={article.container}>
+                    <TouchableOpacity activeOpacity={1} style={article.box}>
                         <Image
                             source={{
-                                uri: item?.urlToImage,
+                                uri: item.urlToImage,
                                 cache: 'force-cache',
                             }}
                             resizeMode={'cover'}
@@ -36,7 +36,7 @@ export default function Home() {
                         <LinearGradient
                             colors={['#0000', '#000A', '#000']}
                             style={article.titleContainer}>
-                            <Text style={article.text}>{item?.title}</Text>
+                            <Text style={article.text}>{item.title}</Text>
                             <Text style={article.timestamp}>
                                 {moment(item.publishedAt).format('HH:MM DD, MMMM')}
                             </Text>
