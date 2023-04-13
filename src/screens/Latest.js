@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { View, Text, FlatList, StyleSheet, RefreshControl } from "react-native";
 import { API_KEY } from "@env"
 
 export default function Latest() {
     const [newsData, setNewsData] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
 
     const fetchNews = () => {
         fetch(`https://newsapi.org/v2/everything?q=suomi&sortBy=publishedAt&apiKey=${API_KEY}`)
@@ -14,18 +15,34 @@ export default function Latest() {
 
     useEffect(() => { fetchNews() }, [])
 
+    const handleRefresh = useCallback(() => {
+        fetchNews();
+    });
+
     const listSeparator = () => {
         return (
             <View style={{ height: 1, backgroundColor: '#adadad', marginLeft: 1, marginRight: 1, marginTop: 10, marginBottom: 10 }} />
         );
     }
 
+    const listHeader = () => {
+        return(
+            <View>
+            <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', marginBottom: 10}}>Whats new?</Text>
+            {listSeparator()}
+            </View>
+        );
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', }}>Whats new?</Text>
             <FlatList
                 data={newsData}
                 keyExtractor={item => item.url}
+                ListHeaderComponent={listHeader}
+                refreshControl = {
+                    <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={'white'}/>
+                }
                 renderItem={({ item }) => (
                     <View>
                         <View >
@@ -35,7 +52,6 @@ export default function Latest() {
                         </View>
                     </View>
                 )}
-                // tee itemseperator paremmin ja erikseen
                 ItemSeparatorComponent={listSeparator}
                 style={styles.list}
             />
@@ -55,6 +71,6 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         marginRight: 2,
         marginLeft: 2,
-        marginTop: 25
+        marginTop: 15
     },
 });
