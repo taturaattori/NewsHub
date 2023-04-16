@@ -7,10 +7,17 @@ export default function Latest() {
     const [refreshing, setRefreshing] = useState(false);
 
     const fetchNews = () => {
+        setRefreshing(true);
         fetch(`https://newsapi.org/v2/everything?q=suomi&sortBy=publishedAt&apiKey=${API_KEY}`)
             .then(response => response.json())
-            .then(data => setNewsData(data.articles))
-            .catch(error => console.error(error));
+            .then(data => {
+                setNewsData(data.articles);
+                setRefreshing(false);
+            })
+            .catch(error => {
+                console.error(error)
+                setRefreshing(false);
+            });
     }
 
     useEffect(() => { fetchNews() }, [])
@@ -26,10 +33,10 @@ export default function Latest() {
     }
 
     const listHeader = () => {
-        return(
+        return (
             <View>
-            <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', marginBottom: 10}}>Whats new?</Text>
-            {listSeparator()}
+                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', marginBottom: 10 }}>Whats new?</Text>
+                {listSeparator()}
             </View>
         );
     }
@@ -40,8 +47,8 @@ export default function Latest() {
                 data={newsData}
                 keyExtractor={item => item.url}
                 ListHeaderComponent={listHeader}
-                refreshControl = {
-                    <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={'white'}/>
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={'white'} />
                 }
                 renderItem={({ item }) => (
                     <View>

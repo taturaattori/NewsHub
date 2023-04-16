@@ -13,9 +13,14 @@ export default function Home() {
         setRefreshing(true);
         fetch(`https://newsapi.org/v2/top-headlines?language=en&apiKey=${API_KEY}`)
             .then(response => response.json())
-            .then(data => setNewsData(data.articles))
-            .catch(error => console.error(error));
-        setRefreshing(false);
+            .then(data => {
+                setNewsData(data.articles);
+                setRefreshing(false);
+            })
+            .catch(error => {
+                console.error(error)
+                setRefreshing(false);
+            });
     }
 
     useEffect(() => { fetchNews() }, [])
