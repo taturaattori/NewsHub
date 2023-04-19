@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, RefreshControl } from "react-native";
-import { API_KEY } from "@env"
+import { NEWS_API_KEY } from "@env"
 import moment from "moment/moment";
 import { LinearGradient } from 'expo-linear-gradient';
 import { article } from "../components/style";
@@ -11,7 +11,7 @@ export default function Home() {
 
     const fetchNews = () => {
         setRefreshing(true);
-        fetch(`https://newsapi.org/v2/top-headlines?language=en&apiKey=${API_KEY}`)
+        fetch(`https://newsapi.org/v2/top-headlines?language=en&apiKey=${NEWS_API_KEY}`)
             .then(response => response.json())
             .then(data => {
                 setNewsData(data.articles);

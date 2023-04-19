@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, FlatList, StyleSheet, RefreshControl } from "react-native";
-import { API_KEY } from "@env"
+import { NEWS_API_KEY } from "@env"
 
 export default function Latest() {
     const [newsData, setNewsData] = useState([]);
@@ -8,7 +8,7 @@ export default function Latest() {
 
     const fetchNews = () => {
         setRefreshing(true);
-        fetch(`https://newsapi.org/v2/everything?q=suomi&sortBy=publishedAt&apiKey=${API_KEY}`)
+        fetch(`https://newsapi.org/v2/everything?q=suomi&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`)
             .then(response => response.json())
             .then(data => {
                 setNewsData(data.articles);
