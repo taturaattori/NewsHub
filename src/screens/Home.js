@@ -4,14 +4,16 @@ import { NEWS_API_KEY } from "@env"
 import moment from "moment/moment";
 import { LinearGradient } from 'expo-linear-gradient';
 import { article } from "../components/style";
+import Categories from "../components/Categories";
 
 export default function Home() {
     const [newsData, setNewsData] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
+    const [category, setCategory] = useState('');
 
     const fetchNews = () => {
         setRefreshing(true);
-        fetch(`https://newsapi.org/v2/top-headlines?language=en&apiKey=${NEWS_API_KEY}`)
+        fetch(`https://newsapi.org/v2/top-headlines?language=en&category=${category}&apiKey=${NEWS_API_KEY}`)
             .then(response => response.json())
             .then(data => {
                 setNewsData(data.articles);
@@ -23,14 +25,19 @@ export default function Home() {
             });
     }
 
-    useEffect(() => { fetchNews() }, [])
+    useEffect(() => { fetchNews() }, [category])
 
     const handleRefresh = useCallback(() => {
         fetchNews();
-    })
+    }, [])
+
+    const handleCategorySelect = (category) => {
+        setCategory(category);
+      };
 
     return (
         <View style={styles.container}>
+            <Categories onCategorySelect={handleCategorySelect}/>
             <FlatList
                 showsVerticalScrollIndicator = {false}
                 data = {newsData}

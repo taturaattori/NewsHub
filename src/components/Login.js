@@ -19,7 +19,7 @@ export function LoginStack({ navigation }) {
       navigation.navigate("UserStack");
     } catch (error) {
       if (error.code === 'auth/invalid-email' || error.code === 'auth/wrong-password') {
-        setError('Wrong password or email address');
+        setError('Invalid password or email address');
       } else if (error.code === 'auth/email-already-in-use') {
         setError('Email address already in use');
       } else {
