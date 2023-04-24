@@ -5,8 +5,10 @@ import moment from "moment/moment";
 import { LinearGradient } from 'expo-linear-gradient';
 import { article } from "../components/style";
 import Categories from "../components/Categories";
+import { createStackNavigator } from "@react-navigation/stack";
+import Article from "./Article";
 
-export default function Home() {
+export function HomeScreen({ navigation }) {
     const [newsData, setNewsData] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
     const [category, setCategory] = useState('');
@@ -33,20 +35,20 @@ export default function Home() {
 
     const handleCategorySelect = (category) => {
         setCategory(category);
-      };
+    };
 
     return (
         <View style={styles.container}>
-            <Categories onCategorySelect={handleCategorySelect}/>
+            <Categories onCategorySelect={handleCategorySelect} />
             <FlatList
-                showsVerticalScrollIndicator = {false}
-                data = {newsData}
-                keyExtractor = {item => item.url}
-                refreshControl = {
-                    <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={'white'}/>
+                showsVerticalScrollIndicator={false}
+                data={newsData}
+                keyExtractor={item => item.url}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={'white'} />
                 }
                 renderItem={({ item }) => (
-                    <TouchableOpacity activeOpacity={1} style={article.box}>
+                    <TouchableOpacity activeOpacity={1} style={article.box} onPress={() => navigation.navigate('Article', { article: item })}>
                         <Image
                             source={{
                                 uri: item.urlToImage,
@@ -69,6 +71,17 @@ export default function Home() {
             />
         </View>
     );
+}
+
+const Stack = createStackNavigator();
+
+export default function Home() {
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+            <Stack.Screen name="Article" component={Article} options={{ headerShown: false }}/>
+        </Stack.Navigator>
+    )
 }
 
 const styles = StyleSheet.create({

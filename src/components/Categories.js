@@ -7,8 +7,8 @@ export default function Categories({ onCategorySelect }) {
     return (
         <View style={styles.container}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                <Button mode="contained" textColor="grey" onPress={() => onCategorySelect('')} >All</Button>
-                <Button mode="outlined" onPress={() => onCategorySelect('business')} >Business</Button>
+                <Button mode="contained" textColor="grey" buttonColor="white" onPress={() => onCategorySelect('')} >All</Button>
+                <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('business')} >Business</Button>
                 <Button mode="outlined" onPress={() => onCategorySelect('entertainment')} >Entertainment</Button>
                 <Button mode="outlined" onPress={() => onCategorySelect('health')} >Health</Button>
                 <Button mode="outlined" onPress={() => onCategorySelect('science')} >Science</Button>
