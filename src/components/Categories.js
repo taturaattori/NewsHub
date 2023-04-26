@@ -9,11 +9,11 @@ export default function Categories({ onCategorySelect }) {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 <Button mode="contained" textColor="grey" buttonColor="white" onPress={() => onCategorySelect('')} >All</Button>
                 <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('business')} >Business</Button>
-                <Button mode="outlined" onPress={() => onCategorySelect('entertainment')} >Entertainment</Button>
-                <Button mode="outlined" onPress={() => onCategorySelect('health')} >Health</Button>
-                <Button mode="outlined" onPress={() => onCategorySelect('science')} >Science</Button>
-                <Button mode="outlined" onPress={() => onCategorySelect('sports')} >Sports</Button>
-                <Button mode="outlined" onPress={() => onCategorySelect('technology')} >Technology</Button>
+                <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('entertainment')} >Entertainment</Button>
+                <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('health')} >Health</Button>
+                <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('science')} >Science</Button>
+                <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('sports')} >Sports</Button>
+                <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('technology')} >Technology</Button>
             </ScrollView>
         </View>
     );
