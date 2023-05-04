@@ -1,14 +1,22 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, FlatList, StyleSheet, RefreshControl } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { NEWS_API_KEY } from "@env"
 
 export default function Latest() {
     const [newsData, setNewsData] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
+    const [country, setCountry] = useState('suomi');
+
+    const countryOptions = [
+        { label: 'Finland', value: 'suomi' },
+        { label: 'United States', value: 'us' },
+        { label: 'United Kingdom', value: 'uk' },
+    ]
 
     const fetchNews = () => {
         setRefreshing(true);
-        fetch(`https://newsapi.org/v2/everything?q=suomi&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`)
+        fetch(`https://newsapi.org/v2/everything?q=${country}&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`)
             .then(response => response.json())
             .then(data => {
                 setNewsData(data.articles);
@@ -20,7 +28,7 @@ export default function Latest() {
             });
     }
 
-    useEffect(() => { fetchNews() }, [])
+    useEffect(() => { fetchNews() }, [country])
 
     const handleRefresh = useCallback(() => {
         fetchNews();
@@ -28,14 +36,30 @@ export default function Latest() {
 
     const listSeparator = () => {
         return (
-            <View style={{ height: 1, backgroundColor: '#adadad', marginLeft: 1, marginRight: 1, marginTop: 10, marginBottom: 10 }} />
+            <View style={{ height: 1, backgroundColor: 'salmon', marginLeft: 1, marginRight: 1, marginTop: 10, marginBottom: 10 }} />
         );
     }
 
     const listHeader = () => {
         return (
             <View>
-                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', marginBottom: 10 }}>Whats new?</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', marginBottom: 10 }}>Whats new in?</Text>
+                
+                    <Picker
+                        selectedValue={country}
+                        onValueChange={(itemValue) => {
+                            setCountry(itemValue);
+                            fetchNews();
+                        }}
+                        style={{ height: 70, width: 200, color: 'salmon', }}
+                        dropdownIconColor={'salmon'}
+                    >
+                        {countryOptions.map((option) => (
+                            <Picker.Item key={option.value} label={option.label} value={option.value} />
+                        ))}
+                    </Picker>
+                </View>
                 {listSeparator()}
             </View>
         );

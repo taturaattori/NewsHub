@@ -67,19 +67,21 @@ export default function Article({ route, navigation }) {
         getSavedArticles();
     }, []);
 
-
+    // implement hide bookmark if not logged in
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
             <Image source={{ uri: urlToImage }} style={styles.image} />
             <Text style={styles.date}>Published: {moment(publishedAt).format('HH:MM DD.MM.YYYY')}</Text>
             <Text style={styles.content}>{content}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20}}>
             <TouchableOpacity onPress={handleOpenUrl} >
                 <Text style={styles.link}>Read rest to of the article</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleSaveArticle}>
-                <Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={30} color="salmon" />
+            <TouchableOpacity onPress={handleSaveArticle} style={{position:"absolute", right: 5, bottom: 5}}>
+                <Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={32} color="salmon" />
             </TouchableOpacity>
+            </View>
             <Snackbar
                 visible={snackbarVisible}
                 theme={{ colors: {surface: 'gray', accent: 'red'},}}
@@ -128,9 +130,9 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     link: {
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: "bold",
-        color: 'gray',
+        color: 'salmon',
         marginBottom: 15
     }
 });

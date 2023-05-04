@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './src/screens/Home';
@@ -12,6 +12,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
+
         screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -25,14 +26,17 @@ export default function App() {
           } 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: 'white',
+        tabBarActiveTintColor: 'salmon',
         tabBarInactiveTintColor: 'gray',
-        tabBarStyle: {backgroundColor: '#31373e'}
-        
+        tabBarStyle: {backgroundColor: '#31373e'},
+        headerTitleAlign: 'center',
+        headerStyle: {backgroundColor: '#31373e'},
+        headerTintColor: 'salmon', headerTitleStyle: {fontFamily: 'monospace'},
+        headerLeft: () => <Image style={{width: 60, height: 40, marginLeft: 5, marginTop: 5}} source={require('./assets/News.png')}/>
       })}>
-        <Tab.Screen name="Home" component={Home} options={{headerStyle: {backgroundColor: '#31373e'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'monospace'}}}/>
-        <Tab.Screen name="Latest" component={Latest} options={{headerStyle: {backgroundColor: '#31373e'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'monospace'}}}/>
-        <Tab.Screen name="Profile" component={Profile} options={{headerStyle: {backgroundColor: '#31373e'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'monospace'}}}/>
+        <Tab.Screen name="Home" component={Home}/>
+        <Tab.Screen name="Latest" component={Latest}/>
+        <Tab.Screen name="Profile" component={Profile}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
