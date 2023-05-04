@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexGrow: 1,
-        backgroundColor: '#212838'
+        backgroundColor: '#31373e'
     },
     list: {
         flex: 1,

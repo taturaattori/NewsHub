@@ -27,12 +27,12 @@ export default function App() {
         },
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'gray',
-        tabBarStyle: {backgroundColor: '#212838'}
+        tabBarStyle: {backgroundColor: '#31373e'}
         
       })}>
-        <Tab.Screen name="Home" component={Home} options={{headerStyle: {backgroundColor: '#212838'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'AlNile-Bold'}}}/>
-        <Tab.Screen name="Latest" component={Latest} options={{headerStyle: {backgroundColor: '#212838'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'AlNile-Bold'}}}/>
-        <Tab.Screen name="Profile" component={Profile} options={{headerStyle: {backgroundColor: '#212838'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'AlNile-Bold'}}}/>
+        <Tab.Screen name="Home" component={Home} options={{headerStyle: {backgroundColor: '#31373e'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'monospace'}}}/>
+        <Tab.Screen name="Latest" component={Latest} options={{headerStyle: {backgroundColor: '#31373e'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'monospace'}}}/>
+        <Tab.Screen name="Profile" component={Profile} options={{headerStyle: {backgroundColor: '#31373e'}, headerTintColor: '#fff', headerTitleStyle: {fontFamily: 'monospace'}}}/>
       </Tab.Navigator>
     </NavigationContainer>
   );

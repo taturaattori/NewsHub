@@ -55,7 +55,7 @@ export default function Latest() {
                         <View >
                             <Text style={{ fontSize: 13, color: '#aaa' }}>{new Date(item.publishedAt).toLocaleString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</Text>
                             <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white', marginTop: 5 }}>{item.title}</Text>
-                            <Text style={{ fontSize: 14, color: '#555', marginTop: 5 }}>{item.source.name}</Text>
+                            <Text style={{ fontSize: 14, color: '#b5b5b5', marginTop: 5 }}>{item.source.name}</Text>
                         </View>
                     </View>
                 )}
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexGrow: 1,
-        backgroundColor: '#212838',
+        backgroundColor: '#31373e',
     },
     list: {
         flex: 1,
