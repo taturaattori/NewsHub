@@ -6,7 +6,6 @@ import { ref, push, remove, onValue, child, get } from "@firebase/database";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Snackbar } from "react-native-paper";
 
-
 export default function Article({ route, navigation }) {
 
     const { title, publishedAt, urlToImage, content, url } = route.params.article;
@@ -74,13 +73,17 @@ export default function Article({ route, navigation }) {
             <Image source={{ uri: urlToImage }} style={styles.image} />
             <Text style={styles.date}>Published: {moment(publishedAt).format('HH:MM DD.MM.YYYY')}</Text>
             <Text style={styles.content}>{content}</Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20}}>
-            <TouchableOpacity onPress={handleOpenUrl} >
+            <View style={{ flexDirection: 'row', alignItems: 'center', position: 'absolute', bottom: 5}}>
+            <TouchableOpacity onPress={handleOpenUrl} style={{flexDirection: 'row'}}>
                 <Text style={styles.link}>Read rest to of the article</Text>
+                <Ionicons name="open-outline" size={25} color='salmon'/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleSaveArticle} style={{position:"absolute", right: 5, bottom: 5}}>
-                <Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={32} color="salmon" />
-            </TouchableOpacity>
+            { currentUser ? (
+            <TouchableOpacity onPress={handleSaveArticle} style={{position:"absolute", right: -125}}>
+                <Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={30} color="salmon" />
+            </TouchableOpacity>) : (
+            <></>
+            )}
             </View>
             <Snackbar
                 visible={snackbarVisible}
@@ -130,10 +133,13 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     link: {
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: "bold",
         color: 'salmon',
-        marginBottom: 15
+        marginBottom: 7,
+        marginRight: 5,
+        marginLeft: 5,
+        textDecorationLine: 'underline'
     }
 });
 

@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, StyleSheet } from "react-native";
 import { auth } from "./firebaseConfig";
 
 export default function LoggedIn() {
@@ -16,14 +16,23 @@ export default function LoggedIn() {
   return (
     <View>
       {user ? (
-        <>
-          <Text>Hello {user.displayName}!</Text>
-          <Text>{user.email}</Text>
-        </>
+        <View style={styles.profile}>
+          <Text style={styles.username}>{user.displayName}</Text>
+          <Button title="Log out" onPress={logout} />
+        </View>
       ) : (
         <Text></Text>
       )}
-      <Button title="Log out" onPress={logout} />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  username: {
+    fontSize: 24,
+    color: 'white',
+  },
+  profile: {
+    flexDirection: 'row'
+  }
+})

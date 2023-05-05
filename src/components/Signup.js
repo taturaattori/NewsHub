@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#31373e'
   },
   inner: {
     width: 240,
@@ -100,17 +101,19 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: 'salmon'
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: 'salmon',
     borderRadius: 4,
     paddingVertical: 8,
     paddingHorizontal: 12,
     marginBottom: 16,
+    color: 'white'
   },
   error: {
     marginBottom: 20,
-    color: 'red',
+    color: 'white',
   },
 });

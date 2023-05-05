@@ -2,16 +2,24 @@ import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, FlatList, StyleSheet, RefreshControl } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { NEWS_API_KEY } from "@env"
+import { createStackNavigator } from "@react-navigation/stack";
+import Article from "./Article";
+import { TouchableOpacity } from "react-native";
 
-export default function Latest() {
+export function LatestStack({ navigation }) {
     const [newsData, setNewsData] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
-    const [country, setCountry] = useState('suomi');
+    const [country, setCountry] = useState('usa');
 
     const countryOptions = [
         { label: 'Finland', value: 'suomi' },
-        { label: 'United States', value: 'us' },
+        { label: 'United States', value: 'usa' },
         { label: 'United Kingdom', value: 'uk' },
+        { label: 'Sweden', value: 'sverige' },
+        { label: 'Norway', value: 'norge' },
+        { label: 'Denmark', value: 'danmark' },
+        { label: 'Germany', value: 'deutschland' },
+
     ]
 
     const fetchNews = () => {
@@ -44,7 +52,7 @@ export default function Latest() {
         return (
             <View>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', marginBottom: 10 }}>Whats new in?</Text>
+                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'salmon', marginBottom: 5 }}>What's new in?</Text>
                 
                     <Picker
                         selectedValue={country}
@@ -52,8 +60,9 @@ export default function Latest() {
                             setCountry(itemValue);
                             fetchNews();
                         }}
-                        style={{ height: 70, width: 200, color: 'salmon', }}
+                        style={{ height: 70, width: 200, color: 'salmon' }}
                         dropdownIconColor={'salmon'}
+                        
                     >
                         {countryOptions.map((option) => (
                             <Picker.Item key={option.value} label={option.label} value={option.value} />
@@ -75,18 +84,29 @@ export default function Latest() {
                     <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={'white'} />
                 }
                 renderItem={({ item }) => (
-                    <View>
+                    <TouchableOpacity onPress={() => navigation.navigate('Article', { article: item })}>
                         <View >
                             <Text style={{ fontSize: 13, color: '#aaa' }}>{new Date(item.publishedAt).toLocaleString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</Text>
                             <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white', marginTop: 5 }}>{item.title}</Text>
                             <Text style={{ fontSize: 14, color: '#b5b5b5', marginTop: 5 }}>{item.source.name}</Text>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 )}
                 ItemSeparatorComponent={listSeparator}
                 style={styles.list}
             />
         </View>
+    );
+}
+
+const Stack = createStackNavigator();
+
+export default function Latest() {
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name='LatestStack' component={LatestStack} options={{headerShown: false}}/>
+            <Stack.Screen name='Article' component={Article} options={{headerShown: false}}/>
+        </Stack.Navigator>
     );
 }
 
@@ -100,8 +120,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexGrow: 1,
         paddingVertical: 8,
+        padding: 7,
         marginRight: 2,
         marginLeft: 2,
-        marginTop: 15
+        marginTop: 15,
     },
 });

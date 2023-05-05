@@ -28,10 +28,10 @@ export const article = StyleSheet.create({
     },
     text: {
       fontSize: 18,
-      fontWeight: '600',
+      fontWeight: '400',
       lineHeight: 24,
       color: '#fff',
-      paddingBottom: 24,
+      paddingBottom: 22,
     },
     timestamp: {
       position: 'absolute',
@@ -39,6 +39,6 @@ export const article = StyleSheet.create({
       fontSize: 12,
       fontWeight: '300',
       right: 16,
-      bottom: 8,
+      bottom: 6,
     },
   });

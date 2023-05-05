@@ -20,6 +20,7 @@ export function HomeScreen({ navigation }) {
             .then(data => {
                 setNewsData(data.articles);
                 setRefreshing(false);
+                navigation.setParams({ category });
             })
             .catch(error => {
                 console.error(error)
@@ -31,10 +32,11 @@ export function HomeScreen({ navigation }) {
 
     const handleRefresh = useCallback(() => {
         fetchNews();
-    }, [])
+    }, [category])
 
     const handleCategorySelect = (category) => {
         setCategory(category);
+        navigation.setParams({ category });
     };
 
     return (
@@ -58,7 +60,7 @@ export function HomeScreen({ navigation }) {
                             style={article.image}
                         />
                         <LinearGradient
-                            colors={['#0000', '#000A', '#000']}
+                            colors={['#0000', '#0000', '#000A', '#000A','black']}
                             style={article.titleContainer}>
                             <Text style={article.text}>{item.title}</Text>
                             <Text style={article.timestamp}>
@@ -77,11 +79,17 @@ const Stack = createStackNavigator();
 
 export default function Home() {
     return(
-        <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
-            <Stack.Screen name="Article" component={Article} options={{ headerShown: false }}/>
+        <Stack.Navigator
+        screenOptions={{
+        headerTitleAlign: 'center',
+        headerStyle: {backgroundColor: '#31373e'},
+        headerTintColor: 'salmon', headerTitleStyle: {fontFamily: 'monospace'},
+        headerLeft: () => <Image style={{width: 60, height: 40, marginLeft: 5, marginTop: 5}} source={require('../../assets/News.png')}/>
+        }}>
+            <Stack.Screen name="Home" component={HomeScreen} options={({ route }) => ({ headerTitle: route.params?.category === '' ? ('Top Headlines') : (route.params?.category) })}/>
+            <Stack.Screen name="Article" component={Article} />
         </Stack.Navigator>
-    )
+    );
 }
 
 const styles = StyleSheet.create({

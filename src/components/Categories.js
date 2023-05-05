@@ -7,13 +7,13 @@ export default function Categories({ onCategorySelect }) {
     return (
         <View style={styles.container}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                <Button mode="contained" textColor="grey" buttonColor="white" onPress={() => onCategorySelect('')} >All</Button>
-                <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('business')} >Business</Button>
-                <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('entertainment')} >Entertainment</Button>
-                <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('health')} >Health</Button>
-                <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('science')} >Science</Button>
-                <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('sports')} >Sports</Button>
-                <Button mode="outlined" textColor="white" onPress={() => onCategorySelect('technology')} >Technology</Button>
+                <Button mode="contained" textColor="white" buttonColor="salmon" style={styles.button} onPress={() => onCategorySelect('')} >All</Button>
+                <Button  mode="contained" textColor="white" buttonColor="salmon" style={styles.button} onPress={() => onCategorySelect('Business')} >Business</Button>
+                <Button  mode="contained" textColor="white" buttonColor="salmon" style={styles.button} onPress={() => onCategorySelect('Entertainment')} >Entertainment</Button>
+                <Button  mode="contained" textColor="white" buttonColor="salmon" style={styles.button} onPress={() => onCategorySelect('Health')} >Health</Button>
+                <Button  mode="contained" textColor="white" buttonColor="salmon" style={styles.button} onPress={() => onCategorySelect('Science')} >Science</Button>
+                <Button  mode="contained" textColor="white" buttonColor="salmon" style={styles.button} onPress={() => onCategorySelect('Sports')} >Sports</Button>
+                <Button  mode="contained" textColor="white" buttonColor="salmon" style={styles.button} onPress={() => onCategorySelect('Technology')} >Technology</Button>
             </ScrollView>
         </View>
     );
@@ -24,4 +24,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 10,
     },
+    button: {
+        marginRight: 2
+    }
 })
