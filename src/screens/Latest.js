@@ -12,8 +12,8 @@ export function LatestStack({ navigation }) {
     const [country, setCountry] = useState('usa');
 
     const countryOptions = [
-        { label: 'Finland', value: 'suomi' },
         { label: 'United States', value: 'usa' },
+        { label: 'Finland', value: 'suomi' },
         { label: 'United Kingdom', value: 'uk' },
         { label: 'Sweden', value: 'sverige' },
         { label: 'Norway', value: 'norge' },

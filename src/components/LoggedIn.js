@@ -1,6 +1,8 @@
 import { signOut } from "firebase/auth";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { auth } from "./firebaseConfig";
+import Icon from 'react-native-vector-icons/Ionicons';
+import { Button } from "react-native-paper";
 
 export default function LoggedIn() {
 
@@ -17,8 +19,11 @@ export default function LoggedIn() {
     <View>
       {user ? (
         <View style={styles.profile}>
+          <View style={styles.left}>
+          <Icon name="person-circle-outline" size={35} color="white" style={styles.icon}/>
           <Text style={styles.username}>{user.displayName}</Text>
-          <Button title="Log out" onPress={logout} />
+          </View>
+          <Button mode='contained' buttonColor='salmon' onPress={logout}>Log out</Button>
         </View>
       ) : (
         <Text></Text>
@@ -33,6 +38,16 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   profile: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'space-between', 
+    alignItems: 'center',
+    padding: 10
+  },
+  icon: {
+    marginRight: 10,
+  },
+  left: {
+    flexDirection: 'row',
+    marginRight: 130
   }
 })
