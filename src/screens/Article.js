@@ -75,11 +75,11 @@ export default function Article({ route, navigation }) {
             <Text style={styles.content}>{content}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', position: 'absolute', bottom: 5}}>
             <TouchableOpacity onPress={handleOpenUrl} style={{flexDirection: 'row'}}>
-                <Text style={styles.link}>Read rest to of the article</Text>
+                <Text style={styles.link}>Read the full article</Text>
                 <Ionicons name="open-outline" size={25} color='salmon'/>
             </TouchableOpacity>
             { currentUser ? (
-            <TouchableOpacity onPress={handleSaveArticle} style={{position:"absolute", right: -125}}>
+            <TouchableOpacity onPress={handleSaveArticle} style={{position:"absolute", right: -175}}>
                 <Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={30} color="salmon" />
             </TouchableOpacity>) : (
             <></>

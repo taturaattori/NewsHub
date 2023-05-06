@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Switch, Text, TouchableOpacity } from 'react-native';
-import Login from '../components/Login';
+import Login from './Login';
 import Saved from './Saved'
 import Sources from './Sources'
 import LoggedIn from '../components/LoggedIn';
@@ -63,7 +63,7 @@ export default function Profile() {
       <Stack.Screen name="UserStack" component={ProfileScreen} options={{ headerShown: false }} />
       <Stack.Screen name="LoginStack" component={Login} options={{ headerShown: false }} />
       <Stack.Screen name="Saved" component={Saved} options={{ headerShown: false }}/>
-      <Stack.Screen name="Sources" component={Sources} />
+      <Stack.Screen name="Sources" component={Sources} options={{ headerShown: false }}/>
     </Stack.Navigator>
   );
 }

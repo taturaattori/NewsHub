@@ -87,7 +87,7 @@ export default function Home() {
         headerLeft: () => <Image style={{width: 60, height: 40, marginLeft: 5, marginTop: 5}} source={require('../../assets/News.png')}/>
         }}>
             <Stack.Screen name="Home" component={HomeScreen} options={({ route }) => ({ headerTitle: route.params?.category === '' ? ('Top Headlines') : (route.params?.category) })}/>
-            <Stack.Screen name="Article" component={Article} />
+            <Stack.Screen name="Article" component={Article} options={{headerTitle: ''}}/>
         </Stack.Navigator>
     );
 }

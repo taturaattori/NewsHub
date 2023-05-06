@@ -1,7 +1,8 @@
-import { View, Text, Button, TextInput, StyleSheet, Alert } from "react-native";
+import { View, Text, TextInput, StyleSheet, Alert } from "react-native";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
-import { auth } from "./firebaseConfig";
+import { auth } from "../components/firebaseConfig";
+import { Button } from "react-native-paper";
 
 export default function Signup({ navigation }) {
   const [username, setUsername] = useState('')
@@ -26,10 +27,18 @@ export default function Signup({ navigation }) {
           })
         }
       } else {
-        setError("Passwords don't match")
+        setError("Passwords don't match.");
       }
     } catch (e) {
-      setError("Failed to create account");
+      if (e.code === 'auth/invalid-email') {
+        setError("Invalid email address.");
+      }
+      if (e.code === 'auth/weak-password') {
+        setError("Password must be at least 6 characters.");
+      }
+      if (e.code === 'auth/email-already-in-use') {
+        setError('Email address already in use.');
+      }
       console.log(e);
     }
   };
@@ -78,10 +87,10 @@ export default function Signup({ navigation }) {
         />
 
         <Button
-          title="Create account"
+          mode='contained' buttonColor='salmon' style={styles.button}
           onPress={createAccount}
           disabled={!username || !email || !password || !confirmPassword}
-        />
+        >Create account</Button>
       </View>
     </View>
   );
@@ -116,4 +125,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: 'white',
   },
+  button: {
+    marginVertical: 10
+  }
 });

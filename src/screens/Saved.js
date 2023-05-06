@@ -70,7 +70,7 @@ export default function Saved() {
                     style={styles.list}
                 />)
                 :
-                (<Text>You have to be logged in to save articles!</Text>)}
+                (<Text style={styles.emptyList}>You need to login to save articles!</Text>)}
         </View>
     );
 }
@@ -82,9 +82,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#31373e'
     },
     emptyList: {
-        marginVertical: 50,
+        marginVertical: 100,
         textAlign: 'center',
         fontSize: 16,
+        color: '#d4d2cd',
         fontWeight: 'bold',
     },
     list: {

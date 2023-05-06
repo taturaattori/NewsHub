@@ -1,9 +1,10 @@
-import { View, Text, Button, TextInput, StyleSheet, Alert } from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { auth } from "./firebaseConfig";
+import { auth } from "../components/firebaseConfig";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { createStackNavigator } from '@react-navigation/stack';
 import Signup from "./Signup";
+import { Button } from "react-native-paper";
 
 const Stack = createStackNavigator();
 
@@ -20,8 +21,6 @@ export function LoginStack({ navigation }) {
     } catch (error) {
       if (error.code === 'auth/invalid-email' || error.code === 'auth/wrong-password') {
         setError('Invalid password or email address');
-      } else if (error.code === 'auth/email-already-in-use') {
-        setError('Email address already in use');
       } else {
         setError('Problem logging in');
       }
@@ -53,8 +52,8 @@ export function LoginStack({ navigation }) {
           placeholderTextColor="#aaa"
           style={styles.input}
         />
-        <Button title="Login" onPress={loginUser} disabled={!email || !password} />
-        <Button title="New here? Create account" onPress={() => navigation.navigate('Signup')} />
+        <Button mode='contained' buttonColor='salmon' style={styles.button} onPress={loginUser} disabled={!email || !password}>Login</Button>
+        <Button mode='contained' buttonColor='salmon' onPress={() => navigation.navigate('Signup')}>New here? Create an account</Button>
       </View>
     </View>
   );
@@ -98,4 +97,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: 'white',
   },
+  button: {
+    marginVertical: 10
+  }
 });

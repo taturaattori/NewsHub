@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home, { HomeScreen } from './src/screens/Home';
+import Home from './src/screens/Home';
 import Profile from './src/screens/Profile';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { auth } from './src/components/firebaseConfig';
@@ -40,7 +40,7 @@ export default function App({ category }) {
       })}>
         <Tab.Screen name="Home" component={Home} options={{headerShown: false}}/>
         <Tab.Screen name="Latest" component={Latest}/>
-        <Tab.Screen name="More" component={Profile}/>
+        <Tab.Screen name="More" component={Profile} options={{headerTitle: () => <Image style={{width: 80, height: 50, marginLeft: 5, marginTop: 5}} source={require('./assets/News.png')}/>, headerLeft: false}}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
