@@ -9,6 +9,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from "../components/firebaseConfig";
 import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Search from './Search';
 
 const Stack = createStackNavigator();
 
@@ -37,7 +38,7 @@ export function ProfileScreen({ navigation }) {
           </>
         )}
       </View>
-      <TouchableOpacity onPress={() => { navigation.navigate('Saved') }} style={styles.menuButton}>
+      <TouchableOpacity onPress={() => { navigation.navigate('Search') }} style={styles.menuButton}>
         <Text style={styles.menuText}>Search</Text>
         <Icon name="chevron-forward" size={20} color="white" />
       </TouchableOpacity>
@@ -64,6 +65,7 @@ export default function Profile() {
       <Stack.Screen name="LoginStack" component={Login} options={{ headerShown: false }} />
       <Stack.Screen name="Saved" component={Saved} options={{ headerShown: false }}/>
       <Stack.Screen name="Sources" component={Sources} options={{ headerShown: false }}/>
+      <Stack.Screen name="Search" component={Search} options={{ headerShown: false }}/>
     </Stack.Navigator>
   );
 }

@@ -24,6 +24,7 @@ export default function Article({ route, navigation }) {
         const articleData = {
             title: title,
             url: url,
+            content: content,
             urlToImage: urlToImage,
             publishedAt: publishedAt
         };
@@ -89,6 +90,7 @@ export default function Article({ route, navigation }) {
                 visible={snackbarVisible}
                 theme={{ colors: {surface: 'gray', accent: 'red'},}}
                 onDismiss={() => setSnackbarVisible(false)}
+                duration={4000}
                 action={{
                     label: 'Dismiss',
                     onPress: () => {

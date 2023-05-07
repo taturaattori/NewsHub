@@ -9,7 +9,7 @@ import Latest from './src/screens/Latest';
 
 const Tab = createBottomTabNavigator();
 
-export default function App({ category }) {
+export default function App() {
 
   const currentUser = auth.currentUser
 

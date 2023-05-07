@@ -4,24 +4,25 @@ import { NEWS_API_KEY } from "@env"
 import moment from "moment/moment";
 import { LinearGradient } from 'expo-linear-gradient';
 import { article } from "../components/style";
-import Categories from "../components/Categories";
 import { createStackNavigator } from "@react-navigation/stack";
 import Article from "./Article";
-import uuid from 'react-native-uuid'
+import { Searchbar } from "react-native-paper";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { color } from "@rneui/base";
 
-export function HomeScreen({ navigation }) {
+export default function Search({ navigation }) {
     const [newsData, setNewsData] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
-    const [category, setCategory] = useState('');
+    const [keyword, setKeyword] = useState('');
+
 
     const fetchNews = () => {
         setRefreshing(true);
-        fetch(`https://newsapi.org/v2/top-headlines?language=en&category=${category}&apiKey=${NEWS_API_KEY}`)
+        fetch(`https://newsapi.org/v2/everything?q=${keyword}&apiKey=${NEWS_API_KEY}`)
             .then(response => response.json())
             .then(data => {
                 setNewsData(data.articles);
                 setRefreshing(false);
-                navigation.setParams({ category });
             })
             .catch(error => {
                 console.error(error)
@@ -29,32 +30,27 @@ export function HomeScreen({ navigation }) {
             });
     }
 
-    useEffect(() => { fetchNews() }, [category])
-
     const handleRefresh = useCallback(() => {
         fetchNews();
-    }, [category])
+    }, [keyword])
 
-    const handleCategorySelect = (category) => {
-        setCategory(category);
-        navigation.setParams({ category });
-    };
+    const onChangeSearch = query => setKeyword(query);
 
-    return (
+    return(
         <View style={styles.container}>
-            <Categories onCategorySelect={handleCategorySelect} />
+            <Searchbar placeholder="Search" value={keyword} onChangeText={onChangeSearch} onIconPress={fetchNews}/>
             <FlatList
                 showsVerticalScrollIndicator={false}
                 data={newsData}
-                keyExtractor={() => uuid.v4()}
+                keyExtractor={item => item.url}
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={'white'} />
                 }
                 renderItem={({ item }) => (
-                    <TouchableOpacity activeOpacity={1} style={article.box} onPress={() => navigation.navigate('Article', { article: item })}>
+                    <TouchableOpacity activeOpacity={1} style={article.box} >
                         <Image
                             source={{
-                                uri: item.urlToImage ?? 'https://picsum.photos/400/300',
+                                uri: item.urlToImage,
                                 cache: 'force-cache',
                             }}
                             resizeMode={'cover'}
@@ -70,26 +66,15 @@ export function HomeScreen({ navigation }) {
                         </LinearGradient>
                     </TouchableOpacity>
                 )}
+                ListEmptyComponent={
+                    <View>
+                    <Text style={styles.emptyList}>What would you like to read?</Text>
+                    <Ionicons name="md-search" size={70} style={styles.icon}/>
+                    </View>
+                }
                 style={styles.list}
             />
         </View>
-    );
-}
-
-const Stack = createStackNavigator();
-
-export default function Home() {
-    return(
-        <Stack.Navigator
-        screenOptions={{
-        headerTitleAlign: 'center',
-        headerStyle: {backgroundColor: '#31373e'},
-        headerTintColor: 'salmon', headerTitleStyle: {fontFamily: 'monospace'},
-        headerLeft: () => <Image style={{width: 60, height: 40, marginLeft: 5, marginTop: 5}} source={require('../../assets/News.png')}/>
-        }}>
-            <Stack.Screen name="HomeScreen" component={HomeScreen} options={({ route }) => ({ headerTitle: route.params?.category === '' ? ('Top Headlines') : (route.params?.category) })}/>
-            <Stack.Screen name="Article" component={Article} options={{headerTitle: ''}}/>
-        </Stack.Navigator>
     );
 }
 
@@ -104,4 +89,16 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         paddingVertical: 8,
     },
+    emptyList: {
+        marginTop: 100,
+        textAlign: 'center',
+        fontSize: 16,
+        color: '#d4d2cd',
+        fontWeight: 'bold',
+    },
+    icon: {
+        alignSelf: 'center',
+        color: '#d4d2cd',
+        marginTop: 10
+    }
 });

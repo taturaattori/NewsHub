@@ -5,6 +5,7 @@ import { NEWS_API_KEY } from "@env"
 import { createStackNavigator } from "@react-navigation/stack";
 import Article from "./Article";
 import { TouchableOpacity } from "react-native";
+import uuid from 'react-native-uuid'
 
 export function LatestStack({ navigation }) {
     const [newsData, setNewsData] = useState([]);
@@ -78,7 +79,7 @@ export function LatestStack({ navigation }) {
         <View style={styles.container}>
             <FlatList
                 data={newsData}
-                keyExtractor={item => item.url}
+                keyExtractor={() => uuid.v4()}
                 ListHeaderComponent={listHeader}
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={'white'} />

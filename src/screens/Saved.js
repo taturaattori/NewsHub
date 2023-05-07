@@ -5,29 +5,32 @@ import { ref, onValue } from '@firebase/database';
 import { article } from "../components/style";
 import { LinearGradient } from 'expo-linear-gradient';
 import moment from "moment/moment";
+import { createStackNavigator } from "@react-navigation/stack";
+import Article from "./Article";
 
-export default function Saved() {
+export function SavedScreen({ navigation }) {
     const [saved, setSaved] = useState([]);
     const currentUser = auth.currentUser;
 
     if (currentUser) {
-    useEffect(() => {
-        const savedRef = ref(database, `users/${currentUser.uid}/read`);
-        const getData = onValue(savedRef, (snapshot) => {
-            const savedData = snapshot.val() || [];
-            const savedList = Object.keys(savedData).map((key) => ({
-                id: key,
-                ...savedData[key],
-            }));
-            setSaved(savedList);
-        });
-        return () => {
-            getData();
-        };
-    }, [])}
+        useEffect(() => {
+            const savedRef = ref(database, `users/${currentUser.uid}/read`);
+            const getData = onValue(savedRef, (snapshot) => {
+                const savedData = snapshot.val() || [];
+                const savedList = Object.keys(savedData).map((key) => ({
+                    id: key,
+                    ...savedData[key],
+                }));
+                setSaved(savedList);
+            });
+            return () => {
+                getData();
+            };
+        }, [])
+    }
 
     const renderArticle = ({ item }) => (
-        <TouchableOpacity activeOpacity={1} style={article.box} >
+        <TouchableOpacity activeOpacity={1} style={article.box} onPress={() => navigation.navigate('Article', { article: item })}>
             <Image
                 source={{
                     uri: item.urlToImage,
@@ -48,11 +51,12 @@ export default function Saved() {
     );
 
     const listHeader = () => {
-        return(
-        <View style={{ alignItems: 'center', marginBottom: 15}}>
-            <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'salmon', marginBottom: 5 }}>Saved articles</Text>
-        </View>
-    )}
+        return (
+            <View style={{ alignItems: 'center', marginBottom: 15 }}>
+                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'salmon', marginBottom: 5 }}>Saved articles</Text>
+            </View>
+        )
+    }
 
     return (
         <View style={styles.container}>
@@ -75,6 +79,23 @@ export default function Saved() {
     );
 }
 
+const Stack = createStackNavigator();
+
+export default function Saved() {
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerTitleAlign: 'center',
+                headerStyle: { backgroundColor: '#31373e' },
+                headerTintColor: 'salmon', headerTitleStyle: { fontFamily: 'monospace' },
+                headerLeft: () => <Image style={{ width: 60, height: 40, marginLeft: 5, marginTop: 5 }} source={require('../../assets/News.png')} />
+            }}>
+            <Stack.Screen name="SavedScreen" component={SavedScreen} options={{headerShown: false}}/>
+            <Stack.Screen name="Article" component={Article} options={{ headerTitle: '' }} />
+        </Stack.Navigator>
+    );
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -92,7 +113,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexGrow: 1,
         paddingVertical: 8,
-        padding: 7,
+        padding: 3,
         marginRight: 2,
         marginLeft: 2,
         marginTop: 15,
