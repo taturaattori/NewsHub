@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from "react-native";
 import { auth, database } from "../components/firebaseConfig";
 import { ref, onValue } from '@firebase/database';
-import { article } from "../components/style";
+import { article } from "../components/styles";
 import { LinearGradient } from 'expo-linear-gradient';
 import moment from "moment/moment";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -68,7 +68,7 @@ export function SavedScreen({ navigation }) {
                     keyExtractor={(item) => item.id}
                     ListEmptyComponent={
                         <Text style={styles.emptyList}>
-                            You haven't saved any articles yet. Press the bookmark icon any article to save it here.
+                            You haven't saved any articles yet. Press the bookmark icon on any article to save it here.
                         </Text>
                     }
                     style={styles.list}

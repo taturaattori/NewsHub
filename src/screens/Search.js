@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, RefreshContr
 import { NEWS_API_KEY } from "@env"
 import moment from "moment/moment";
 import { LinearGradient } from 'expo-linear-gradient';
-import { article } from "../components/style";
+import { article } from "../components/styles";
 import { createStackNavigator } from "@react-navigation/stack";
 import Article from "./Article";
 import { Searchbar } from "react-native-paper";

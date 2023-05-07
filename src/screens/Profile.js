@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Switch, Text, TouchableOpacity } from 'react-native';
+import { View, menuheet, Switch, Text, TouchableOpacity } from 'react-native';
 import Login from './Login';
 import Saved from './Saved'
 import Sources from './Sources'
+import Search from './Search';
 import LoggedIn from '../components/LoggedIn';
 import { createStackNavigator } from '@react-navigation/stack';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from "../components/firebaseConfig";
 import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Search from './Search';
+import { menu } from '../components/styles';
+import Settings from './Settings';
 
 const Stack = createStackNavigator();
 
@@ -26,8 +28,8 @@ export function ProfileScreen({ navigation }) {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.top}>
+    <View style={menu.container}>
+      <View style={menu.top}>
         {loggedIn ? (
           <>
             <LoggedIn />
@@ -38,20 +40,20 @@ export function ProfileScreen({ navigation }) {
           </>
         )}
       </View>
-      <TouchableOpacity onPress={() => { navigation.navigate('Search') }} style={styles.menuButton}>
-        <Text style={styles.menuText}>Search</Text>
+      <TouchableOpacity onPress={() => { navigation.navigate('Search') }} style={menu.menuButton}>
+        <Text style={menu.menuText}>Search</Text>
         <Icon name="chevron-forward" size={20} color="white" />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => { navigation.navigate('Saved') }} style={styles.menuButton}>
-        <Text style={styles.menuText}>Saved articles</Text>
+      <TouchableOpacity onPress={() => { navigation.navigate('Saved') }} style={menu.menuButton}>
+        <Text style={menu.menuText}>Saved articles</Text>
         <Icon name="chevron-forward" size={20} color="white" />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => { navigation.navigate('Sources') }} style={styles.menuButton}>
-        <Text style={styles.menuText}>News sources</Text>
+      <TouchableOpacity onPress={() => { navigation.navigate('Sources') }} style={menu.menuButton}>
+        <Text style={menu.menuText}>News sources</Text>
         <Icon name="chevron-forward" size={20} color="white" />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => { navigation.navigate('Sources') }} style={styles.menuButton}>
-        <Text style={styles.menuText}>Settings</Text>
+      <TouchableOpacity onPress={() => { navigation.navigate('Settings') }} style={menu.menuButton}>
+        <Text style={menu.menuText}>Settings</Text>
         <Icon name="chevron-forward" size={20} color="white" />
       </TouchableOpacity>
     </View>
@@ -66,37 +68,7 @@ export default function Profile() {
       <Stack.Screen name="Saved" component={Saved} options={{ headerShown: false }}/>
       <Stack.Screen name="Sources" component={Sources} options={{ headerShown: false }}/>
       <Stack.Screen name="Search" component={Search} options={{ headerShown: false }}/>
+      <Stack.Screen name="Settings" component={Settings} options={{ headerShown: false }}/>
     </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#31373e'
-  },
-  top: {
-    flexDirection: 'row',
-    position: 'absolute',
-    top: 10
-  },
-  menuButton: {
-    width: '101%',
-    backgroundColor: '#31373e',
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    marginBottom: 0,
-    flexDirection: 'row'
-  },
-  menuText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'salmon'
-  }
-})

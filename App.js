@@ -1,17 +1,14 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './src/screens/Home';
 import Profile from './src/screens/Profile';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { auth } from './src/components/firebaseConfig';
 import Latest from './src/screens/Latest';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-
-  const currentUser = auth.currentUser
 
   return (
     <NavigationContainer>

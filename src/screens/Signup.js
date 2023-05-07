@@ -1,8 +1,9 @@
-import { View, Text, TextInput, StyleSheet, Alert } from "react-native";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { View, Text, TextInput, Alert } from "react-native";
+import { createUserWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../components/firebaseConfig";
 import { Button } from "react-native-paper";
+import { userInput } from "../components/styles";
 
 export default function Signup({ navigation }) {
   const [username, setUsername] = useState('')
@@ -17,10 +18,10 @@ export default function Signup({ navigation }) {
         let res = await createUserWithEmailAndPassword(auth, email, password);
         if (res && res.user) {
           Alert.alert("Account created successfully");
-          //await signInWithEmailAndPassword(auth, email, password);
           updateProfile(auth.currentUser, {
             displayName: username
           }).then(() => {
+            signOut(auth);
             navigation.navigate("UserStack");
           }).catch((e) => {
             console.log(e);
@@ -44,11 +45,11 @@ export default function Signup({ navigation }) {
   };
 
   return (
-    <View style={styles.outer}>
-      <View style={styles.inner}>
-        <Text style={styles.header}>Sign up</Text>
+    <View style={userInput.outer}>
+      <View style={userInput.inner}>
+        <Text style={userInput.header}>Sign up</Text>
 
-        {error && <Text style={styles.error}>{error}</Text>}
+        {error && <Text style={userInput.error}>{error}</Text>}
 
         <TextInput
           value={username}
@@ -56,7 +57,7 @@ export default function Signup({ navigation }) {
           placeholder="Username"
           autoCapitalize="none"
           placeholderTextColor="#aaa"
-          style={styles.input}
+          style={userInput.input}
         />
         <TextInput
           value={email}
@@ -65,7 +66,7 @@ export default function Signup({ navigation }) {
           placeholder="Email"
           autoCapitalize="none"
           placeholderTextColor="#aaa"
-          style={styles.input}
+          style={userInput.input}
         />
         <TextInput
           value={password}
@@ -74,7 +75,7 @@ export default function Signup({ navigation }) {
           placeholder="Password"
           autoCapitalize="none"
           placeholderTextColor="#aaa"
-          style={styles.input}
+          style={userInput.input}
         />
         <TextInput
           value={confirmPassword}
@@ -83,11 +84,11 @@ export default function Signup({ navigation }) {
           placeholder="Confirm password"
           autoCapitalize="none"
           placeholderTextColor="#aaa"
-          style={styles.input}
+          style={userInput.input}
         />
 
         <Button
-          mode='contained' buttonColor='salmon' style={styles.button}
+          mode='contained' buttonColor='salmon' style={userInput.button}
           onPress={createAccount}
           disabled={!username || !email || !password || !confirmPassword}
         >Create account</Button>
@@ -95,37 +96,3 @@ export default function Signup({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  outer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#31373e'
-  },
-  inner: {
-    width: 240,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: 'salmon'
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: 'salmon',
-    borderRadius: 4,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginBottom: 16,
-    color: 'white'
-  },
-  error: {
-    marginBottom: 20,
-    color: 'white',
-  },
-  button: {
-    marginVertical: 10
-  }
-});
