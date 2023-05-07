@@ -39,7 +39,7 @@ APP_ID=
 MEASUREMENT_ID=
 
 //NewsAPI
-NEWS_API_KEY
+NEWS_API_KEY=
 ```
 4. Sovelluksen käynnistys
 ```sh
