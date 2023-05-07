@@ -20,7 +20,7 @@ Tärkeitä komponenttikirjastoja ovat olleet esimerkiksi [React Navigation][Reac
 ## Asennus
 1. Kloonaa repository
   ```sh
-  git clone 
+  git clone https://github.com/taturaattori/NewsHub.git
   ```
 2. Asenna tarvittavat paketit
   ```sh
