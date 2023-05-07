@@ -53,7 +53,7 @@ export const menu = StyleSheet.create({
   top: {
     flexDirection: 'row',
     position: 'absolute',
-    top: 10
+    top: 15
   },
   menuButton: {
     width: '101%',

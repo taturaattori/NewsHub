@@ -8,9 +8,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Article from "./Article";
 import { Searchbar } from "react-native-paper";
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { color } from "@rneui/base";
+import uuid from 'react-native-uuid'
 
-export default function Search({ navigation }) {
+export function SearchScreen({ navigation }) {
     const [newsData, setNewsData] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
     const [keyword, setKeyword] = useState('');
@@ -42,12 +42,12 @@ export default function Search({ navigation }) {
             <FlatList
                 showsVerticalScrollIndicator={false}
                 data={newsData}
-                keyExtractor={item => item.url}
+                keyExtractor={() => uuid.v4()}
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={'white'} />
                 }
                 renderItem={({ item }) => (
-                    <TouchableOpacity activeOpacity={1} style={article.box} >
+                    <TouchableOpacity activeOpacity={1} style={article.box} onPress={() => navigation.navigate('Article', { article: item })}>
                         <Image
                             source={{
                                 uri: item.urlToImage,
@@ -76,6 +76,17 @@ export default function Search({ navigation }) {
             />
         </View>
     );
+}
+
+const Stack = createStackNavigator();
+
+export default function Search() {
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name="SearchScreen" component={SearchScreen} options={{headerShown: false}}/>
+            <Stack.Screen name="Article" component={Article} options={{headerShown: false}}/>
+        </Stack.Navigator>
+    )
 }
 
 const styles = StyleSheet.create({

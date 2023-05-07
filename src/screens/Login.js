@@ -1,10 +1,11 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput } from "react-native";
 import React, { useState } from "react";
 import { auth } from "../components/firebaseConfig";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { createStackNavigator } from '@react-navigation/stack';
 import Signup from "./Signup";
 import { Button } from "react-native-paper";
+import { userInput } from "../components/styles";
 
 const Stack = createStackNavigator();
 
@@ -28,11 +29,11 @@ export function LoginStack({ navigation }) {
   };
 
   return (
-    <View style={styles.outer}>
-      <View style={styles.inner}>
-        <Text style={styles.header}>Login</Text>
+    <View style={userInput.outer}>
+      <View style={userInput.inner}>
+        <Text style={userInput.header}>Login</Text>
 
-        {error && <Text style={styles.error}>{error}</Text>}
+        {error && <Text style={userInput.error}>{error}</Text>}
 
         <TextInput
           value={email}
@@ -41,7 +42,7 @@ export function LoginStack({ navigation }) {
           placeholder="Email"
           autoCapitalize="none"
           placeholderTextColor="#aaa"
-          style={styles.input}
+          style={userInput.input}
         />
         <TextInput
           value={password}
@@ -50,9 +51,9 @@ export function LoginStack({ navigation }) {
           placeholder="Password"
           autoCapitalize="none"
           placeholderTextColor="#aaa"
-          style={styles.input}
+          style={userInput.input}
         />
-        <Button mode='contained' buttonColor='salmon' style={styles.button} onPress={loginUser} disabled={!email || !password}>Login</Button>
+        <Button mode='contained' buttonColor='salmon' style={userInput.button} onPress={loginUser} disabled={!email || !password}>Login</Button>
         <Button mode='contained' buttonColor='salmon' onPress={() => navigation.navigate('Signup')}>New here? Create an account</Button>
       </View>
     </View>
@@ -67,37 +68,3 @@ export default function Login() {
     </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  outer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#31373e'
-  },
-  inner: {
-    width: 240,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: 'salmon'
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: 'salmon',
-    borderRadius: 4,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginBottom: 16,
-    color: 'white'
-  },
-  error: {
-    marginBottom: 20,
-    color: 'white',
-  },
-  button: {
-    marginVertical: 10
-  }
-});

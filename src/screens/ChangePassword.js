@@ -24,7 +24,7 @@ export default function ChangePassword({ navigation }) {
                 await updatePassword(user, newPassword);
                 console.log('Password changed successfully');
                 setSnackbarVisible(true);
-                navigation.navigate("SettingsScreen");
+                //navigation.navigate("SettingsScreen");
             } else {
                 setError("New passwords don't match.")
             }

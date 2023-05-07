@@ -11,7 +11,7 @@
 - [![Firebase][Firebase]][Firebase-url]
 
 ### API
-- 
+* [News API](https://newsapi.org/) 
 
 Projekti on luotu Expolla ja kirjoitettu React Nativella. Tiedontallennus tapahtuu Firebasen Realtime tietokantaan. Käytössä myös Fireabase autentikointi.
 
@@ -28,7 +28,7 @@ Tärkeitä komponenttikirjastoja ovat olleet esimerkiksi [React Navigation][Reac
   ```
 3. Luo projektin juureen `.env` -tiedosto, johon lisäät seuraavat tiedot Firebase Realtime tietokannastasi sekä NewsAPI avaimen
 ```
-//firebase
+//Firebase
 API_KEY=
 AUTH_DOMAIN=
 DATABASE_URL=
@@ -37,7 +37,8 @@ STORAGE_BUCKET=
 MESSAGING_SENDER_ID=
 APP_ID=
 MEASUREMENT_ID=
-//newsapi
+
+//NewsAPI
 NEWS_API_KEY
 ```
 4. Sovelluksen käynnistys
@@ -48,11 +49,11 @@ npx expo start
 
 ## Käyttöliittymä
 <p float="left">
-
+<img src="assets/home.png" width="49%" height="49%" />
+<img src="assets/latest.png" width="49%" height="49%" />
+<img src="assets/profile.png" width="49%" height="49%" />
+<img src="assets/article.png" width="49%" height="49%" />
 </p>
-
-## Tietoturva
-Sovellusta on hyvä testata Firebasen sääntöjen `read` ja `write` ollessa `true`, mutta jos koodi etenee tuotantoon, on hyvä muokata sääntöjä esimerkiksi seuraavalla tavalla, että ei-kirjautuneet käyttäjät eivät voi lukea tai kirjoittaa dataa, ja kirjautuneet käyttäjät voivat lukea tai kirjoittaa dataa vain omalla käyttäjällään.
 
 
 [⬆️ Takaisin ylös](#projektista)
@@ -65,6 +66,5 @@ Sovellusta on hyvä testata Firebasen sääntöjen `read` ja `write` ollessa `tr
 [Firebase]: https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase
 [Firebase-url]: https://firebase.google.com/
 [React-Navigation-url]: https://reactnavigation.org/
-[React-Native-Elements-url]: https://reactnativeelements.com/
 [React-Native-Paper-url]: https://reactnativepaper.com/
 [node-url]: https://nodejs.org/en
